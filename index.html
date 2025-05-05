@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeyX - Python Kodu Göster</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <!-- Prism.js CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-vsc-dark-plus.min.css" rel="stylesheet" id="prism-theme" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
+            font-family: 'Fira Code', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .logo-container {
+            text-align: center;
+            margin: 20px 0;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            color: #00ffcc;
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
+            letter-spacing: 2px;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
+            to { text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc; }
+        }
+        .code-container {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+            border: 2px solid #00ffcc;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .code-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            color: #00ffcc;
+            text-shadow: 0 0 10px #00ffcc;
+        }
+        .code-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .copy-btn, .fullscreen-btn, .theme-btn {
+            background: linear-gradient(180deg, #00ffcc, #00b3b3);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            color: #000;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        .copy-btn:hover, .fullscreen-btn:hover, .theme-btn:hover {
+            background: linear-gradient(180deg, #00e6b8, #009999);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            transform: translateY(-3px);
+        }
+        .copy-btn:active, .fullscreen-btn:active, .theme-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+        }
+        pre {
+            background: #1e1e2e;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            white-space: pre;
+            font-size: 15px;
+            line-height: 1.6;
+            max-height: 700px;
+            overflow-y: auto;
+            border: 1px solid #333;
+        }
+        .line-numbers {
+            padding-left: 50px !important;
+        }
+        .code-container.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            border-radius: 0;
+            z-index: 1000;
+            padding: 50px;
+        }
+        .signature {
+            margin-top: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            text-shadow: 0 0 10px #ffd700;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 36px;
+            }
+            .code-container {
+                padding: 20px;
+            }
+            .code-header h2 {
+                font-size: 22px;
+            }
+            .copy-btn, .fullscreen-btn, .theme-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+            pre {
+                font-size: 13px;
+                padding: 15px;
+            }
+            .signature {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <h1 class="logo">ZeyX</h1>
+    </div>
+    <div class="code-container">
+        <div class="code-header">
+            <h2>Python Birim Dönüştürücü</h2>
+            <div class="code-actions">
+                <button class="theme-btn" onclick="toggleTheme()">Açık Tema</button>
+                <button class="fullscreen-btn" onclick="toggleFullscreen()">Tam Ekran</button>
+                <button class="copy-btn" onclick="copyCode()">Kodu Kopyala</button>
+            </div>
+        </div>
+        <pre class="line-numbers"><code class="language-python"># -----------------------------------------
+# PT PROJE ÖDEVİ, BİRİM DÖNÜŞTÜRÜCÜ PROGRAMI
+# Hazırlayan: Mehmet Karazeybek
+# -----------------------------------------
+while True:
+    print("\nBirim Dönüştürücü")
+    print("0: çıkış")
+    print("1: km -> m")
+    print("2: m -> cm")
+    print("3: cm -> mm")
+    print("4: kg -> g")
+    print("5: g -> mg")
+    print("6: L -> mL")
+    print("7: saat -> dakika")
+    print("8: dakika -> saniye")
+    print("9: gun -> saat")
+    print("10: hafta -> gun")
+    print("11: ay -> gun (ortalama)")
+    print("12: yil -> gun")
+    print("13: km/h -> m/s")
+    print("14: °C -> °F")
+    print("15: °F -> °C")
+    print("16: inc -> cm")
+    print("17: feet -> m")
+    print("18: mil -> km")
+    print("19: pound -> kg")
+    print("20: ons -> g")
+    print("21: m -> km")
+    print("22: cm -> m")
+
+    secim = int(input("Hangi dönüşümü yapmak istersiniz? (0-22): "))
+    if secim == 0:
+        print("Program kapatılıyor...")
+        break
+
+    deger = float(input("Donusturulecek degeri girin: "))
+
+    if secim == 1:
+        print(deger, "km =", deger * 1000, "m")
+    elif secim == 2:
+        print(deger, "m =", deger * 100, "cm")
+    elif secim == 3:
+        print(deger, "cm =", deger * 10, "mm")
+    elif secim == 4:
+        print(deger, "kg =", deger * 1000, "g")
+    elif secim == 5:
+        print(deger, "g =", deger * 1000, "mg")
+    elif secim == 6:
+        print(deger, "L =", deger * 1000, "mL")
+    elif secim == 7:
+        print(deger, "saat =", deger * 60, "dakika")
+    elif secim == 8:
+        print(deger, "dakika =", deger * 60, "saniye")
+    elif secim == 9:
+        print(deger, "gun =", deger * 24, "saat")
+    elif secim == 10:
+        print(deger, "hafta =", deger * 7, "gun")
+    elif secim == 11:
+        print(deger, "ay =", deger * 30, "gun")
+    elif secim == 12:
+        print(deger, "yil =", deger * 365, "gun")
+    elif secim == 13:
+        print(deger, "km/h =", deger / 3.6, "m/s")
+    elif secim == 14:
+        print(deger, "°C =", (deger * 9 / 5) + 32, "°F")
+    elif secim == 15:
+        print(deger, "°F =", (deger - 32) * 5 / 9, "°C")
+    elif secim == 16:
+        print(deger, "inc =", deger * 2.54, "cm")
+    elif secim == 17:
+        print(deger, "feet =", deger * 0.3048, "m")
+    elif secim == 18:
+        print(deger, "mil =", deger * 1.60934, "km")
+    elif secim == 19:
+        print(deger, "pound =", deger * 0.453592, "kg")
+    elif secim == 20:
+        print(deger, "ons =", deger * 28.3495, "g")
+    elif secim == 21:
+        print(deger, "m =", deger / 1000, "km")
+    elif secim == 22:
+        print(deger, "cm =", deger / 100, "m")
+    else:
+        print("Gecersiz secim!")
+        continue
+
+    devam = input("Devam etmek istiyor musunuz? (e/h): ")
+    if devam == "e":
+        continue
+    else:
+        print("Program kapatildi.")
+        break
+
+# ---------------------------------------------------------
+# BU PROJEYİ NASIL YAPTIM
+# Bu projeyi yaparken donguler konusunu isliyorduk.
+# Ben de while True dongusu kullandim, her zaman menuye donsun diye.
+# 0 yazinca program break ile biter.
+# Kullanici 'e' yazarsa continue ile basa doner.
+# Bu sekilde hem while, hem break hem de continue komutlarini
+# ogrendigim icin bu projede denemek istedim.
+# NOT : BU PROJE FONKSİYONLAR İLE DE YAPILABİLİRDİ
+# ---------------------------------------------------------
+</code></pre>
+        <div class="signature">--ZeyX--</div>
+    </div>
+
+    <!-- Prism.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        let isDarkTheme = true;
+
+        function copyCode() {
+            const code = document.querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Kod kopyalandı!');
+            }).catch(err => {
+                console.error('Kopyalama başarısız:', err);
+            });
+        }
+
+        function toggleFullscreen() {
+            const container = document.querySelector('.code-container');
+            container.classList.toggle('fullscreen');
+            const btn = document.querySelector('.fullscreen-btn');
+            btn.textContent = container.classList.contains('fullscreen') ? 'Tam Ekrandan Çık' : 'Tam Ekran';
+        }
+
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            const link = document.querySelector('#prism-theme');
+            link.href = isDarkTheme
+                ? 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-vsc-dark-plus.min.css'
+                : 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+            document.querySelector('.theme-btn').textContent = isDarkTheme ? 'Açık Tema' : 'Koyu Tema';
+        }
+    </script>
+</body>
+</html>
