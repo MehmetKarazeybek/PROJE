@@ -23,34 +23,34 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
             overflow-x: hidden;
             position: relative;
         }
         .logo-container {
             text-align: center;
-            margin: 20px 0;
+            margin: 15px 0;
             animation: glow 2s ease-in-out infinite alternate;
         }
         .logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 48px;
+            font-size: clamp(32px, 8vw, 40px);
             color: #00ffcc;
-            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc;
-            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+            letter-spacing: 1px;
         }
         @keyframes glow {
-            from { text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
-            to { text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc; }
+            from { text-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc; }
+            to { text-shadow: 0 0 15px #00ffcc, 0 0 30px #00ffcc; }
         }
         .code-container {
             background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(12px);
-            padding: 30px;
-            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            padding: clamp(15px, 4vw, 25px);
+            border-radius: 15px;
             width: 100%;
             max-width: 1000px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             position: relative;
             border: 2px solid #00ffcc;
             animation: fadeIn 1s ease-out;
@@ -61,36 +61,40 @@
         }
         .code-header {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            gap: 10px;
         }
         .code-header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 28px;
+            font-size: clamp(20px, 5vw, 24px);
             color: #00ffcc;
-            text-shadow: 0 0 10px #00ffcc;
+            text-shadow: 0 0 8px #00ffcc;
         }
         .code-actions {
             display: flex;
-            gap: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         .copy-btn, .fullscreen-btn, .theme-btn {
             background: linear-gradient(180deg, #00ffcc, #00b3b3);
             border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
+            padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px);
+            border-radius: 8px;
             color: #000;
             cursor: pointer;
-            font-size: 14px;
+            font-size: clamp(12px, 3vw, 13px);
             font-weight: 500;
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+            touch-action: manipulation;
         }
         .copy-btn:hover, .fullscreen-btn:hover, .theme-btn:hover {
             background: linear-gradient(180deg, #00e6b8, #009999);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            transform: translateY(-2px);
         }
         .copy-btn:active, .fullscreen-btn:active, .theme-btn:active {
             transform: translateY(0);
@@ -98,18 +102,19 @@
         }
         pre {
             background: #1e1e2e;
-            padding: 25px;
-            border-radius: 12px;
+            padding: clamp(15px, 4vw, 20px);
+            border-radius: 10px;
             overflow-x: auto;
             white-space: pre;
-            font-size: 15px;
+            font-size: clamp(12px, 3.5vw, 14px);
             line-height: 1.6;
-            max-height: 700px;
+            max-height: 80vh;
             overflow-y: auto;
             border: 1px solid #333;
+            -webkit-overflow-scrolling: touch; /* iOS için akıcı kaydırma */
         }
         .line-numbers {
-            padding-left: 50px !important;
+            padding-left: clamp(30px, 8vw, 40px) !important;
         }
         .code-container.fullscreen {
             position: fixed;
@@ -120,41 +125,55 @@
             max-width: none;
             border-radius: 0;
             z-index: 1000;
-            padding: 50px;
+            padding: clamp(20px, 5vw, 30px);
         }
         .signature {
-            margin-top: 20px;
+            margin-top: 15px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
+            font-size: clamp(14px, 4vw, 16px);
             color: #ffd700;
-            text-shadow: 0 0 10px #ffd700;
+            text-shadow: 0 0 8px #ffd700;
             animation: pulse 2s infinite;
+            text-align: center;
         }
         @keyframes pulse {
             0% { opacity: 0.8; }
             50% { opacity: 1; }
             100% { opacity: 0.8; }
         }
+        /* Mobil optimizasyonları */
         @media (max-width: 600px) {
-            .logo {
-                font-size: 36px;
+            body {
+                padding: 10px;
             }
-            .code-container {
-                padding: 20px;
+            .logo-container {
+                margin: 10px 0;
             }
-            .code-header h2 {
-                font-size: 22px;
+            .code-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .code-actions {
+                width: 100%;
+                justify-content: flex-end;
             }
             .copy-btn, .fullscreen-btn, .theme-btn {
-                padding: 10px 16px;
-                font-size: 12px;
+                flex: 1;
+                text-align: center;
             }
             pre {
-                font-size: 13px;
-                padding: 15px;
+                max-height: 70vh;
+            }
+        }
+        @media (max-width: 400px) {
+            .logo {
+                font-size: 28px;
+            }
+            .code-header h2 {
+                font-size: 18px;
             }
             .signature {
-                font-size: 16px;
+                font-size: 14px;
             }
         }
     </style>
@@ -275,7 +294,7 @@ while True:
 # NOT : BU PROJE FONKSİYONLAR İLE DE YAPILABİLİRDİ
 # ---------------------------------------------------------
 </code></pre>
-        <div class="signature">--ZeyX--</div>
+        <div class="signature">ZeyX tarafından yazılmıştır</div>
     </div>
 
     <!-- Prism.js JS -->
