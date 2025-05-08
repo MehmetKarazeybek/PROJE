@@ -195,104 +195,183 @@
 # PT PROJE ÖDEVİ, BİRİM DÖNÜŞTÜRÜCÜ PROGRAMI
 # Hazırlayan: Mehmet Karazeybek
 # -----------------------------------------
-while True:
-    print("\nBirim Dönüştürücü")
-    print("0: çıkış")
-    print("1: km -> m")
-    print("2: m -> cm")
-    print("3: cm -> mm")
-    print("4: kg -> g")
-    print("5: g -> mg")
-    print("6: L -> mL")
-    print("7: saat -> dakika")
-    print("8: dakika -> saniye")
-    print("9: gun -> saat")
-    print("10: hafta -> gun")
-    print("11: ay -> gun (ortalama)")
-    print("12: yil -> gun")
-    print("13: km/h -> m/s")
-    print("14: °C -> °F")
-    print("15: °F -> °C")
-    print("16: inc -> cm")
-    print("17: feet -> m")
-    print("18: mil -> km")
-    print("19: pound -> kg")
-    print("20: ons -> g")
-    print("21: m -> km")
-    print("22: cm -> m")
+def uzunluk():
+     while True:
+        print(" -------------------Uzunluk Birimleri Dönüştürme-------------------------")
+        print("1-) kilometre => Metre")
+        print("2-) Santimetre => Metre")
+        print("3-) Metre => Kilometre")
+        print("4-) Santimetre => Milimetre")
+        print("5-) inç => Santimetre")
+        print("6-) Mil => Kilometre")
+        print("0-) Çıkış")
+        secim=int(input("Hangi dönüşümü yapmak istersiniz:  (0-6) "))
 
-    secim = int(input("Hangi dönüşümü yapmak istersiniz? (0-22): "))
-    if secim == 0:
-        print("Program kapatılıyor...")
-        break
+        if secim==0 :
+            print("Çıkış Yapılıyor...")
 
-    deger = float(input("Donusturulecek degeri girin: "))
 
-    if secim == 1:
-        print(deger, "km =", deger * 1000, "m")
-    elif secim == 2:
-        print(deger, "m =", deger * 100, "cm")
-    elif secim == 3:
-        print(deger, "cm =", deger * 10, "mm")
-    elif secim == 4:
-        print(deger, "kg =", deger * 1000, "g")
-    elif secim == 5:
-        print(deger, "g =", deger * 1000, "mg")
-    elif secim == 6:
-        print(deger, "L =", deger * 1000, "mL")
-    elif secim == 7:
-        print(deger, "saat =", deger * 60, "dakika")
-    elif secim == 8:
-        print(deger, "dakika =", deger * 60, "saniye")
-    elif secim == 9:
-        print(deger, "gun =", deger * 24, "saat")
-    elif secim == 10:
-        print(deger, "hafta =", deger * 7, "gun")
-    elif secim == 11:
-        print(deger, "ay =", deger * 30, "gun")
-    elif secim == 12:
-        print(deger, "yil =", deger * 365, "gun")
-    elif secim == 13:
-        print(deger, "km/h =", deger / 3.6, "m/s")
-    elif secim == 14:
-        print(deger, "°C =", (deger * 9 / 5) + 32, "°F")
-    elif secim == 15:
-        print(deger, "°F =", (deger - 32) * 5 / 9, "°C")
-    elif secim == 16:
-        print(deger, "inc =", deger * 2.54, "cm")
-    elif secim == 17:
-        print(deger, "feet =", deger * 0.3048, "m")
-    elif secim == 18:
-        print(deger, "mil =", deger * 1.60934, "km")
-    elif secim == 19:
-        print(deger, "pound =", deger * 0.453592, "kg")
-    elif secim == 20:
-        print(deger, "ons =", deger * 28.3495, "g")
-    elif secim == 21:
-        print(deger, "m =", deger / 1000, "km")
-    elif secim == 22:
-        print(deger, "cm =", deger / 100, "m")
-    else:
-        print("Gecersiz secim!")
-        continue
+        elif secim==1:
+            deger = float(input("Kilometre girin: "))
+            print(deger, "km =", deger * 1000, "m")
+        elif secim==2:
+            deger = float(input("Santimetre girin: "))
+            print(deger, "cm =", deger / 100, "m")
+        elif secim==3:
+            deger = float(input("Metre girin: "))
+            print(deger, "m =", deger / 1000, "km")
+        elif secim==4:
+            deger = float(input("Santimetre girin: "))
+            print(deger, "cm =", deger * 10, "mm")
+        elif secim ==5:
+            deger = float(input("İnç girin: "))
+            print(deger, "inc =", deger * 2.54, "cm")
+        elif secim ==6:
+            deger = float(input("Mil girin: "))
+            print(deger, "mil =", deger * 1.60934, "km")
+        else:
+            print("❌ Yanlış tuşlama yaptınız.")
 
-    devam = input("Devam etmek istiyor musunuz? (e/h): ")
-    if devam == "e":
-        continue
-    else:
-        print("Program kapatildi.")
-        break
+        devam=input("Devam etmek istiyormusunuz (e/h) :")
+        if devam.lower() != "e" :
+            return
 
-# ---------------------------------------------------------
-# BU PROJEYİ NASIL YAPTIM
-# Bu projeyi yaparken donguler konusunu isliyorduk.
-# Ben de while True dongusu kullandim, her zaman menuye donsun diye.
-# 0 yazinca program break ile biter.
-# Kullanici 'e' yazarsa continue ile basa doner.
-# Bu sekilde hem while, hem break hem de continue komutlarini
-# ogrendigim icin bu projede denemek istedim.
-# NOT : BU PROJE FONKSİYONLAR İLE DE YAPILABİLİRDİ
-# ---------------------------------------------------------
+
+
+
+def agirlikdegerleri():
+    while True:
+        print("-------------------Ağırlık dönüşümleri.-------------------")
+        print("1-) g -> mg")
+        print("2-) kg -> g")
+        print("3-) pound -> kg")
+        print("4-) ons -> g")
+        print("5-) L -> mL")
+        print("0-) Çıkış")
+        secim = int(input("Hangi dönüşümü yapmak istersiniz:  (0-5) "))
+
+        if secim==0 :
+            print("Çıkış Yapılıyor...")
+
+
+        elif secim==1:
+            deger = float(input("Gramı girin: "))
+            print(deger, "g =", deger * 1000, "mg")
+        elif secim==2:
+            deger = float(input("Kilogramı girin: "))
+            print(deger, "kg =", deger * 1000, "g")
+        elif secim==3:
+            deger = float(input("Poundu girin: "))
+            print(deger, "pound =", deger * 0.453592, "kg")
+        elif secim==4:
+            deger = float(input("ons değerini girin: "))
+            print(deger, "ons =", deger * 28.3495, "g")
+        elif secim ==5:
+            deger = float(input("litreyi  Girin:"))
+            print(deger, "L =", deger * 1000, "mL")
+
+        else:
+            print("❌ Yanlış tuşlama yaptınız.")
+
+        devam=input("Devam etmek istiyormusunuz (e/h) :")
+        if devam.lower() != "e" :
+            return
+
+
+def veri_donusturucu():
+    while True:
+        print("---------------Bellek kapasitesi ölçü dönüşümleri------------------")
+        print("1-) Byte ➜ Bit")
+        print("2-) Kilobyte ➜ Byte")
+        print("3-) Megabyte ➜ Kilobyte")
+        print("4-) Gigabyte ➜ Megabyte")
+        print("5-) Terabyte ➜ Gigabyte")
+        print("0-) Çıkış")
+        secim = int(input("Hangi dönüşümü yapmak istersiniz:  (0-5) "))
+
+        if secim == 0:
+            print("Çıkış yapılıyor...")
+            return
+        elif secim == 1:
+            deger = float(input("Byte  değerini girin: "))
+            print(deger, "Byte =", deger * 8, "Bit")
+        elif secim == 2:
+            deger = float(input("Kilobyte  değerini girin: "))
+            print(deger, "KB =", deger * 1024, "Byte")
+        elif secim == 3:
+            deger = float(input("Megabyte  değerini girin: "))
+            print(deger, "MB =", deger * 1024, "KB")
+        elif secim == 4:
+            deger = float(input("Gigabyte  değerini girin: "))
+            print(deger, "GB =", deger * 1024, "MB")
+        elif secim == 5:
+            deger = float(input("Terabyte değerini girin: "))
+            print(deger, "TB =", deger * 1024, "GB")
+        else:
+            print("❌ Yanlış tuşlama yaptınız.")
+
+        devam = input("Devam etmek istiyormusunuz (e/h) :")
+        if devam.lower() != "e" :
+            return
+
+def sicaklik():
+    while True:
+        print("️ -------------------Sıcaklık Birimleri Dönüştürme-------------------")
+        print("1-) Celsius => Fahrenheit")
+        print("2-) Fahrenheit => Celsius")
+        print("3-) Celsius => Kelvin")
+        print("4-) Kelvin => Celsius")
+        print("0-) Çıkış")
+        secim = int(input("Hangi dönüşümü yapmak istersiniz:  (0-5) "))
+
+        if secim == 0:
+            print("Çıkış Yapılıyor...")
+        elif secim == 1:
+            deger = float(input("Celsius girin: "))
+            print(deger, "°C =", (deger * 9/5) + 32, "°F")
+        elif secim == 2:
+            deger = float(input("Fahrenheit değerini girin: "))
+            print(deger, "°F =", (deger - 32) * 5/9, "°C")
+        elif secim == 3:
+            deger = float(input("Celsius girin: "))
+            print(deger, "°C =", deger + 273.15, "K")
+        elif secim == 4:
+            deger = float(input("Kelvin girin: "))
+            print(deger, "K =", deger - 273.15, "°C")
+
+        else:
+            print("❌ Yanlış tuşlama yaptınız.")
+
+        devam = input('Devam etmek istiyormusunuz (e/h) :')
+        if devam.lower() != "e" :
+            return
+
+
+def menu():
+    while True:
+        print("---------------------- Birim Dönüştürücü ----------------------")
+        print("1. Uzunluk Birimleri")
+        print("2. Sıcaklık Birimleri")
+        print("3. Ağırlık değerlerini dönüştürme.")
+        print("4. Bellek kapasitesi ölçü dönüşümleri.")
+        print("5. Çıkış")
+        secim = input("Bir kategori seçin (1-5): ")
+
+        if secim == '1':
+            uzunluk()
+        elif secim == '2':
+            sicaklik()
+        elif secim == '3':
+            agirlikdegerleri()
+        elif secim== "4":
+            veri_donusturucu()
+        elif secim == '5':
+            print("Görüşürüz!")
+            break
+        else:
+            print("Geçersiz seçim! Lütfen 1-5 arasında bir değer girin.")
+
+menu()
 </code></pre>
         <div class="signature">ZeyX tarafından yazılmıştır</div>
     </div>
