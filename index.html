@@ -1,197 +1,4 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZeyX - Python Kodu Göster</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-    <!-- Prism.js CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-vsc-dark-plus.min.css" rel="stylesheet" id="prism-theme" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #e0e0e0;
-            font-family: 'Fira Code', monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 15px;
-            overflow-x: hidden;
-            position: relative;
-        }
-        .logo-container {
-            text-align: center;
-            margin: 15px 0;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(32px, 8vw, 40px);
-            color: #00ffcc;
-            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
-            letter-spacing: 1px;
-        }
-        @keyframes glow {
-            from { text-shadow: 0 0 8px #00ffcc, 0 0 15px #00ffcc; }
-            to { text-shadow: 0 0 15px #00ffcc, 0 0 30px #00ffcc; }
-        }
-        .code-container {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            padding: clamp(15px, 4vw, 25px);
-            border-radius: 15px;
-            width: 100%;
-            max-width: 1000px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            position: relative;
-            border: 2px solid #00ffcc;
-            animation: fadeIn 1s ease-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .code-header {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 10px;
-        }
-        .code-header h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(20px, 5vw, 24px);
-            color: #00ffcc;
-            text-shadow: 0 0 8px #00ffcc;
-        }
-        .code-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .copy-btn, .fullscreen-btn, .theme-btn {
-            background: linear-gradient(180deg, #00ffcc, #00b3b3);
-            border: none;
-            padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px);
-            border-radius: 8px;
-            color: #000;
-            cursor: pointer;
-            font-size: clamp(12px, 3vw, 13px);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
-            touch-action: manipulation;
-        }
-        .copy-btn:hover, .fullscreen-btn:hover, .theme-btn:hover {
-            background: linear-gradient(180deg, #00e6b8, #009999);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-            transform: translateY(-2px);
-        }
-        .copy-btn:active, .fullscreen-btn:active, .theme-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
-        }
-        pre {
-            background: #1e1e2e;
-            padding: clamp(15px, 4vw, 20px);
-            border-radius: 10px;
-            overflow-x: auto;
-            white-space: pre;
-            font-size: clamp(12px, 3.5vw, 14px);
-            line-height: 1.6;
-            max-height: 80vh;
-            overflow-y: auto;
-            border: 1px solid #333;
-            -webkit-overflow-scrolling: touch; /* iOS için akıcı kaydırma */
-        }
-        .line-numbers {
-            padding-left: clamp(30px, 8vw, 40px) !important;
-        }
-        .code-container.fullscreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            max-width: none;
-            border-radius: 0;
-            z-index: 1000;
-            padding: clamp(20px, 5vw, 30px);
-        }
-        .signature {
-            margin-top: 15px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(14px, 4vw, 16px);
-            color: #ffd700;
-            text-shadow: 0 0 8px #ffd700;
-            animation: pulse 2s infinite;
-            text-align: center;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { opacity: 0.8; }
-        }
-        /* Mobil optimizasyonları */
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            .logo-container {
-                margin: 10px 0;
-            }
-            .code-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .code-actions {
-                width: 100%;
-                justify-content: flex-end;
-            }
-            .copy-btn, .fullscreen-btn, .theme-btn {
-                flex: 1;
-                text-align: center;
-            }
-            pre {
-                max-height: 70vh;
-            }
-        }
-        @media (max-width: 400px) {
-            .logo {
-                font-size: 28px;
-            }
-            .code-header h2 {
-                font-size: 18px;
-            }
-            .signature {
-                font-size: 14px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="logo-container">
-        <h1 class="logo">ZeyX</h1>
-    </div>
-    <div class="code-container">
-        <div class="code-header">
-            <h2>Python Birim Dönüştürücü</h2>
-            <div class="code-actions">
-                <button class="theme-btn" onclick="toggleTheme()">Açık Tema</button>
-                <button class="fullscreen-btn" onclick="toggleFullscreen()">Tam Ekran</button>
-                <button class="copy-btn" onclick="copyCode()">Kodu Kopyala</button>
-            </div>
-        </div>
-        <pre class="line-numbers"><code class="language-python"># -----------------------------------------
+# -----------------------------------------
 # PT PROJE ÖDEVİ, BİRİM DÖNÜŞTÜRÜCÜ PROGRAMI
 # Hazırlayan: Mehmet Karazeybek
 # -----------------------------------------
@@ -209,6 +16,7 @@ def uzunluk():
 
         if secim==0 :
             print("Çıkış Yapılıyor...")
+
 
 
         elif secim==1:
@@ -270,6 +78,39 @@ def agirlikdegerleri():
             deger = float(input("litreyi  Girin:"))
             print(deger, "L =", deger * 1000, "mL")
 
+        else:
+            print("❌ Yanlış tuşlama yaptınız.")
+
+        devam=input("Devam etmek istiyormusunuz (e/h) :")
+        if devam.lower() != "e" :
+            return
+
+def zaman():
+    while True:
+        print("-------------------Zaman dönüşümleri.-------------------")
+        print("1-) Saat => Dakika")
+        print("2-) Dakika => Saniye")
+        print("3-) Gün => Saat")
+        print("4-) Hafta => Gün")
+        print("0-) Çıkış")
+        secim = int(input("Hangi dönüşümü yapmak istersiniz:  (0-5) "))
+
+        if secim==0 :
+            print("Çıkış Yapılıyor...")
+
+
+        elif secim==1:
+            deger = float(input("Saat dilimini giriniz: "))
+            print(deger, "saat =", deger * 60, "dakika")
+        elif secim==2:
+            deger = float(input("Dakika cinsinde giriniz: "))
+            print(deger, "dakika =", deger * 60, "saniye")
+        elif secim==3:
+            deger = float(input("Gün değerini giriniz Giriniz: "))
+            print(deger, "gün =", deger * 24, "saat")
+        elif secim==4:
+            deger = float(input("Hafta değerini giriniz:"))
+            print(deger, "hafta =", deger * 7, "gün")
         else:
             print("❌ Yanlış tuşlama yaptınız.")
 
@@ -354,8 +195,9 @@ def menu():
         print("2. Sıcaklık Birimleri")
         print("3. Ağırlık değerlerini dönüştürme.")
         print("4. Bellek kapasitesi ölçü dönüşümleri.")
-        print("5. Çıkış")
-        secim = input("Bir kategori seçin (1-5): ")
+        print("5. Zaman dönüşümleri (gün, Hafta vb.)")
+        print("6. Çıkış")
+        secim = input("Bir kategori seçin (1-): ")
 
         if secim == '1':
             uzunluk()
@@ -366,47 +208,10 @@ def menu():
         elif secim== "4":
             veri_donusturucu()
         elif secim == '5':
-            print("Görüşürüz!")
+            zaman()
+        elif secim == "6":
             break
         else:
             print("Geçersiz seçim! Lütfen 1-5 arasında bir değer girin.")
 
 menu()
-</code></pre>
-        <div class="signature">ZeyX tarafından yazılmıştır</div>
-    </div>
-
-    <!-- Prism.js JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-    <script>
-        let isDarkTheme = true;
-
-        function copyCode() {
-            const code = document.querySelector('code').textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                alert('Kod kopyalandı!');
-            }).catch(err => {
-                console.error('Kopyalama başarısız:', err);
-            });
-        }
-
-        function toggleFullscreen() {
-            const container = document.querySelector('.code-container');
-            container.classList.toggle('fullscreen');
-            const btn = document.querySelector('.fullscreen-btn');
-            btn.textContent = container.classList.contains('fullscreen') ? 'Tam Ekrandan Çık' : 'Tam Ekran';
-        }
-
-        function toggleTheme() {
-            isDarkTheme = !isDarkTheme;
-            const link = document.querySelector('#prism-theme');
-            link.href = isDarkTheme
-                ? 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-vsc-dark-plus.min.css'
-                : 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
-            document.querySelector('.theme-btn').textContent = isDarkTheme ? 'Açık Tema' : 'Koyu Tema';
-        }
-    </script>
-</body>
-</html>
