@@ -378,7 +378,7 @@ def zaman():
         print("3-) Gün => Saat")
         print("4-) Hafta => Gün")
         print("0-) Çıkış")
-        secim = int(input("Hangi dönüşümü yapmak istersiniz:  (0-5) "))
+        secim = int(input("Hangi dönüşümü yapmak istersiniz(0-5):   "))
 
         if secim==0 :
             print("Çıkış Yapılıyor...")
@@ -482,7 +482,7 @@ def menu():
         print("4. Bellek kapasitesi ölçü dönüşümleri.")
         print("5. Zaman dönüşümleri (gün, Hafta vb.)")
         print("6. Çıkış")
-        secim = input("Bir kategori seçin (1-): ")
+        secim = input("Bir kategori seçin (1-6): ")
 
         if secim == '1':
             uzunluk()
@@ -497,7 +497,7 @@ def menu():
         elif secim == "6":
             break
         else:
-            print("Geçersiz seçim! Lütfen 1-5 arasında bir değer girin.")
+            print("Geçersiz seçim! Lütfen 1-6 arasında bir değer girin.")
 
 menu()
 
